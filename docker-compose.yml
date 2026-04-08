@@ -5,13 +5,24 @@ services:
       - "10001:10001"
     restart: on-failure
 
-  envoy:
+  envoy-bad:
     image: envoyproxy/envoy:v1.32-latest
     volumes:
-      - ./config/envoy.yaml:/etc/envoy/envoy.yaml
+      - ./config/envoy-bad.yaml:/etc/envoy/envoy.yaml
     ports:
       - "8080:8080"
       - "9901:9901"
+    command: ["/usr/local/bin/envoy", "-c", "/etc/envoy/envoy.yaml"]
+    depends_on:
+      - ext-authz
+
+  envoy-good:
+    image: envoyproxy/envoy:v1.32-latest
+    volumes:
+      - ./config/envoy-good.yaml:/etc/envoy/envoy.yaml
+    ports:
+      - "8081:8080"
+      - "9902:9901"
     command: ["/usr/local/bin/envoy", "-c", "/etc/envoy/envoy.yaml"]
     depends_on:
       - ext-authz
