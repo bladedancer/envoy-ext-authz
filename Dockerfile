@@ -16,7 +16,7 @@ COPY . .
 
 RUN go mod download
 RUN go mod verify
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/extauthzdemo ./main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -o bin/extauthzdemo ./main.go
 
 # final container stage
 FROM scratch
@@ -29,5 +29,7 @@ COPY --from=builder /etc/group /etc/group
 COPY --from=builder /build/bin/extauthzdemo .
 
 USER envuser:envuser
+
+EXPOSE 10001
 
 CMD ["./extauthzdemo", "--port", "10001"]
