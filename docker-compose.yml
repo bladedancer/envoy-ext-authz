@@ -6,7 +6,7 @@ services:
     restart: on-failure
 
   envoy-bad:
-    image: envoyproxy/envoy:v1.32-latest
+    image: envoyproxy/envoy:v1.37.0
     volumes:
       - ./config/envoy-bad.yaml:/etc/envoy/envoy.yaml
     ports:
@@ -17,7 +17,7 @@ services:
       - ext-authz
 
   envoy-good:
-    image: envoyproxy/envoy:v1.32-latest
+    image: envoyproxy/envoy:v1.37.0
     volumes:
       - ./config/envoy-good.yaml:/etc/envoy/envoy.yaml
     ports:
