@@ -81,10 +81,12 @@ static_resources:
                   prefix: /api/foo
                 route:
                   cluster: httpbin
+                  prefix_rewrite: /
               - match:
                   prefix: /api/bar
                 route:
                   cluster: httpbin
+                  prefix_rewrite: /
 
   clusters:
   # gRPC ext_authz service (this project)

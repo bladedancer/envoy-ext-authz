@@ -73,8 +73,13 @@ func extractJWTMetadata(req *authv3.CheckRequest) (string, bool) {
 	}
 
 	jwtMeta, ok := req.Attributes.MetadataContext.FilterMetadata[jwtAuthnNamespace]
-	if !ok || jwtMeta == nil {
-		return "{}", false
+
+	if !ok {
+		return "not ok", false
+	}
+
+	if jwtMeta == nil {
+		return "failure case ... this shouldn't happen", false
 	}
 
 	body, err := protojson.Marshal(jwtMeta)
